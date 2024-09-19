@@ -4,6 +4,7 @@ import VideoCard from '@components/VideoCard';
 import { logout as logoutIcon } from '@constants/icons';
 import { useGlobalContext } from '@context/index';
 import useFetch from '@hooks/useFetch';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserVideos, logout } from 'config/appwrite';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +12,7 @@ import React, { Fragment, useCallback } from 'react';
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -25,20 +27,23 @@ const Profile = () => {
 
   const { data, refetch } = useFetch(fetchVideos);
   const onLogout = async () => {
-    await logout();
-    setUserInfo((prev) => ({
-      ...prev,
-      isLoading: false,
-      isLoggedIn: false,
-      user: null,
-    }));
-    router.replace('/(auth)/login');
+    try {
+      await logout();
+      await AsyncStorage.removeItem('auth');
+      setUserInfo({
+        isLoading: false,
+        isLoggedIn: false,
+        user: null,
+      });
+      router.replace('/(auth)/login');
+    } catch (error) {
+      console.error('Error logging out', error);
+    }
   };
-
   return (
     <Fragment>
       <SafeAreaView style={styles.rootContainer}>
-        <View className="flex-1 px-4">
+        <ScrollView className="flex-1 px-4">
           <FlatList
             data={data ?? []}
             keyExtractor={(item) => item.$id}
@@ -94,7 +99,7 @@ const Profile = () => {
               />
             )}
           />
-        </View>
+        </ScrollView>
       </SafeAreaView>
       <StatusBar style="light" />
     </Fragment>

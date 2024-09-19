@@ -6,26 +6,43 @@ import {
   FlatList,
   Image,
   ImageBackground,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
+// const zoomIn = {
+//   0: {
+//     scale: 0.9,
+//   },
+//   1: {
+//     scale: 1.1,
+//   },
+// };
+// const zoomOut = {
+//   0: {
+//     scale: 1.1,
+//   },
+//   1: {
+//     scale: 0.9,
+//   },
+// };
 const zoomIn = {
   0: {
-    scale: 0.9,
+    transform: [{ scale: 0.9 }],
   },
   1: {
-    scale: 1.1,
+    transform: [{ scale: 1.1 }],
   },
 };
 const zoomOut = {
   0: {
-    scale: 1.1,
+    transform: [{ scale: 1.1 }],
   },
   1: {
-    scale: 0.9,
+    transform: [{ scale: 0.9 }],
   },
 };
 
@@ -100,17 +117,19 @@ const Trending = ({ posts }: { posts: Video[] }) => {
     }
   };
   return (
-    <FlatList
-      data={posts ?? []}
-      keyExtractor={(item) => item.$id}
-      renderItem={({ item }) => (
-        <TrendingVideo activeItem={activeItem} item={item} />
-      )}
-      onViewableItemsChanged={viewableItemsChanged}
-      viewabilityConfig={{ itemVisiblePercentThreshold: 70 }}
-      contentOffset={{ x: 170, y: 0 }}
-      horizontal
-    />
+    <ScrollView>
+      <FlatList
+        data={posts ?? []}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => (
+          <TrendingVideo activeItem={activeItem} item={item} />
+        )}
+        onViewableItemsChanged={viewableItemsChanged}
+        viewabilityConfig={{ itemVisiblePercentThreshold: 70 }}
+        contentOffset={{ x: 170, y: 0 }}
+        horizontal
+      />
+    </ScrollView>
   );
 };
 

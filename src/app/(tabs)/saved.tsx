@@ -10,6 +10,7 @@ import {
   Alert,
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -43,7 +44,7 @@ const Saved = () => {
   return (
     <Fragment>
       <SafeAreaView style={styles.rootContainer}>
-        <View className="flex-1 px-4">
+        <ScrollView className="flex-1 px-4">
           <FlatList
             data={data ?? []}
             keyExtractor={(item) => item.$id}
@@ -83,7 +84,7 @@ const Saved = () => {
               />
             )}
           />
-        </View>
+        </ScrollView>
       </SafeAreaView>
       <StatusBar style="light" />
     </Fragment>

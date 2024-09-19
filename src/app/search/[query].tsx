@@ -6,7 +6,7 @@ import { getVideosBySearch } from 'config/appwrite';
 import { useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { Fragment, useCallback, useEffect } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const SearchQuery = () => {
   const { query } = useLocalSearchParams();
@@ -22,7 +22,7 @@ const SearchQuery = () => {
   return (
     <Fragment>
       <SafeAreaView style={styles.rootContainer}>
-        <View className="flex-1 px-4">
+        <ScrollView className="flex-1 px-4">
           <FlatList
             data={data ?? []}
             keyExtractor={(item) => item.$id}
@@ -53,7 +53,7 @@ const SearchQuery = () => {
               />
             )}
           />
-        </View>
+        </ScrollView>
       </SafeAreaView>
       <StatusBar style="light" />
     </Fragment>

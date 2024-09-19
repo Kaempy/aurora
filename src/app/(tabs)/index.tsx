@@ -12,6 +12,7 @@ import {
   FlatList,
   Image,
   RefreshControl,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -30,10 +31,11 @@ const Home = () => {
     }
     setRefreshing(false);
   };
+  console.log(user, 'user index');
   return (
     <Fragment>
       <SafeAreaView style={styles.rootContainer}>
-        <View className="flex-1 px-4">
+        <ScrollView className="flex-1 px-4">
           <FlatList
             data={data ?? []}
             keyExtractor={(item) => item.$id}
@@ -79,7 +81,7 @@ const Home = () => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           />
-        </View>
+        </ScrollView>
       </SafeAreaView>
       <StatusBar style="light" />
     </Fragment>

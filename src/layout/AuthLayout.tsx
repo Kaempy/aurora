@@ -12,7 +12,7 @@ const AuthLayout = ({
 }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className="flex-1 items-start w-full h-full pt-24 justify-center px-4">
           <Image
             source={logo}
